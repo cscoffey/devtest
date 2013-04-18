@@ -1,4 +1,6 @@
 require 'heroku/command'
+require 'heroku'
+require 'heroku/client/pgbackups'
 #require 'aws/s3'
 
 #itcutility:backup
