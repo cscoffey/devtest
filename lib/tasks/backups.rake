@@ -3,6 +3,21 @@ require 'heroku/command'
 
 #itcutility:backup
 namespace :itcutility do
+  desc "quick backup test"
+  task :quickbackup => :environment do
+    Rails.logger.info("Quick backup started @ #{Time.now}")
+    # inspect
+    puts "DATABASE_URL = #{ENV["DATABASE_URL"]}"
+    puts "HEROKU_BACKUP_DATABASES = #{ENV["HEROKU_BACKUP_DATABASES"]}"
+    
+    client = Heroku::Client::Pgbackups.new(ENV["PGBACKUPS_URL"])
+    #databases.each do |db|
+    #  db_url = ENV[db]
+    #  client.create_transfer(db_url, db, nil, "BACKUP", :expire => true)
+    #end
+    Rails.logger.info("Quick backup complete @ #{Time.now}")
+  end
+  
   desc "create a pg_dump"
   task :backup => :environment do
     APP_NAME = 'itcdevtest'   #ENV['HEROKU_APP_NAME']
