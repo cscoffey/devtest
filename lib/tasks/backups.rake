@@ -14,8 +14,11 @@ namespace :itcutility do
     puts "PGBACKUPS_URL = #{ENV["PGBACKUPS_URL"]}"
     client = Heroku::Client::Pgbackups.new(ENV["PGBACKUPS_URL"])
     #databases.each do |db|
-    #  db_url = ENV[db]
-    #  client.create_transfer(db_url, db, nil, "BACKUP", :expire => true)
+      #db_url = ENV[db]
+      db = "DATABASE_URL"
+      db_url = ENV[db]
+      Rails.logger.info("backing up #{db}")
+      client.create_transfer(db_url, db, nil, "BACKUP", :expire => true)
     #end
     Rails.logger.info("Quick backup complete @ #{Time.now}")
   end
