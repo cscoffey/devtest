@@ -5,7 +5,7 @@ require 'heroku/command'
 namespace :itcutility do
   desc "create a pg_dump"
   task :backup => :environment do
-    APP_NAME = ENV['HEROKU_APP_NAME']
+    APP_NAME = 'itcdevtest'   #ENV['HEROKU_APP_NAME']
  
     Rails.logger.info("Backup started @ #{Time.now}")
     Heroku::Auth.credentials = [ ENV['HEROKU_USERNAME'], ENV['HEROKU_API_KEY'] ]
