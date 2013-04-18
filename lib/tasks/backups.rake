@@ -11,7 +11,7 @@ namespace :itcutility do
     # inspect
     puts "DATABASE_URL = #{ENV["DATABASE_URL"]}"
     puts "HEROKU_BACKUP_DATABASES = #{ENV["HEROKU_BACKUP_DATABASES"]}"
-    
+    puts "PGBACKUPS_URL = #{ENV["PGBACKUPS_URL"]}"
     client = Heroku::Client::Pgbackups.new(ENV["PGBACKUPS_URL"])
     #databases.each do |db|
     #  db_url = ENV[db]
