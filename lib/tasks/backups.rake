@@ -11,15 +11,18 @@ namespace :itcutility do
 #=begin
      
     Rails.logger.info("Backup started @ #{Time.now}")
+    puts "credentials"
     Heroku::Auth.credentials = [ ENV["HEROKU_USERNAME"], ENV["HEROKU_API_KEY"] ]
  
-    Rails.logger.info("Capturing new pg_dump")
+    puts("Capturing new pg_dump")
  
     Heroku::Command.load
+    puts "new..."
     pg_backup = Heroku::Command::Pgbackups.new([], { :app => APP_NAME, :expire => true })
+    puts "capturing..."
     pg_backup.capture
  
-    Rails.logger.info("Opening S3 connection")
+    puts("Opening S3 connection") # Rails.logger.info
     
     AWS::S3::Base.establish_connection!(
       :access_key_id => config["access_key_id"],
@@ -27,21 +30,23 @@ namespace :itcutility do
     )
     BACKUP_BUCKET_NAME = config["backup_bucket_name"]
  
+    puts "bucket find/create..."
     begin
       AWS::S3::Bucket.find(BACKUP_BUCKET_NAME)
     rescue AWS::S3::NoSuchBucket
       AWS::S3::Bucket.create(BACKUP_BUCKET_NAME)
     end
  
-    Rails.logger.info("Opening new pg_dump")
+    puts("Opening new pg_dump")
     pg_backup_client = pg_backup.send(:pgbackup_client) # protected
+    puts "open..."
     local_pg_dump = open(pg_backup_client.get_latest_backup["public_url"])
-    Rails.logger.info("Finished opening new pg_dump")
+    puts("Finished opening new pg_dump")
  
-    Rails.logger.info("Uploading to S3 bucket")
+    puts("Uploading to S3 bucket")
     AWS::S3::S3Object.store(Time.now.to_s(:number), local_pg_dump, BACKUP_BUCKET_NAME)
  
-    Rails.logger.info("Backup completed @ #{Time.now}")
+    puts("Backup completed @ #{Time.now}")
 #=end
     puts "test"
 
