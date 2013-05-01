@@ -5,8 +5,9 @@ require 'aws/s3'
 namespace :itcutility do
   desc "create a pg_dump"
   task :backup => :environment do
+    puts "All Fired Up"
     config = YAML.load(File.open("#{Rails.root}/config/amazon_s3.yml"))[Rails.env]
-    APP_NAME = config['heroku_app_name']
+    APP_NAME = config[ :heroku_app_name ]
      
     Rails.logger.info("Backup started @ #{Time.now}")
     Heroku::Auth.credentials = [ ENV['HEROKU_USERNAME'], ENV['HEROKU_API_KEY'] ]
