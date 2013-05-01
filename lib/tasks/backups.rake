@@ -39,5 +39,6 @@ namespace :itcutility do
     AWS::S3::S3Object.store(Time.now.to_s(:number), local_pg_dump, BACKUP_BUCKET_NAME)
  
     Rails.logger.info("Backup completed @ #{Time.now}")
+    puts "test"
   end
 end
