@@ -19,8 +19,8 @@ namespace :itcutility do
     Heroku::Command.load
     puts "new..."
     pg_backup = Heroku::Command::Pgbackups.new([], { :app => APP_NAME, :expire => true })
-    puts "capturing..."
-    pg_backup.capture
+    puts "capturing..." # ERROR HERE!
+    #pg_backup.capture
  
     puts("Opening S3 connection") # Rails.logger.info
     
