@@ -1,8 +1,4 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
+# S3 creds
 development:
   access_key_id: AKIAI5KSWK7IG7AFALKA
   secret_access_key: des7odLs6eHnpBt03vNDYP3rRFKiiUpf5Og+cr22r
@@ -21,4 +17,4 @@ production:
   backup_bucket_name: easygrouper.backups.itcadre.com
   heroku_app_name: itcdevtest
   
--# end of file
+# end of file
