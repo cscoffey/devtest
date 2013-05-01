@@ -6,6 +6,7 @@ namespace :itcutility do
   desc "create a pg_dump"
   task :backup => :environment do
     puts "All Fired Up"
+=begin
     config = YAML.load(File.open("#{Rails.root}/config/amazon_s3.yml"))[Rails.env]
     APP_NAME = config[ "heroku_app_name" ]
      
@@ -41,6 +42,8 @@ namespace :itcutility do
     AWS::S3::S3Object.store(Time.now.to_s(:number), local_pg_dump, BACKUP_BUCKET_NAME)
  
     Rails.logger.info("Backup completed @ #{Time.now}")
+=end
     puts "test"
+
   end
 end
