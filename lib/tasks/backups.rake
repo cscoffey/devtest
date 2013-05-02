@@ -30,8 +30,9 @@ namespace :itcutility do
     puts "create_transfer"
     @pgbackup = client.create_transfer(db_url, db_url, nil, "BACKUP", :expire => true)
     puts "backup id = #{@pgbackup["id"]}"
+    puts "@pgbackup = #{@pgbackup.inspect}"
     @pgbackup = client.get_transfer(@pgbackup["id"])
-    
+    puts "@pgbackup now = #{@pgbackup.inspect}"
     puts("Opening S3 connection") # Rails.logger.info
     
     AWS::S3::Base.establish_connection!(
