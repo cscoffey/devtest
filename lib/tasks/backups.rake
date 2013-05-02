@@ -8,7 +8,11 @@ namespace :itcutility do
     puts "All Fired Up"
     config = YAML.load(File.open("#{Rails.root}/config/amazon_s3.yml"))[Rails.env]
     APP_NAME = config[ "heroku_app_name" ]
-#=begin
+    puts APP_NAME
+    puts ENV["HEROKU_USERNAME"]
+    puts ENV["HEROKU_API_KEY"]
+    
+=begin
      
     Rails.logger.info("Backup started @ #{Time.now}")
     puts "credentials"
@@ -47,7 +51,7 @@ namespace :itcutility do
     AWS::S3::S3Object.store(Time.now.to_s(:number), local_pg_dump, BACKUP_BUCKET_NAME)
  
     puts("Backup completed @ #{Time.now}")
-#=end
+=end
     puts "test"
 
   end
