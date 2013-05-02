@@ -50,7 +50,7 @@ namespace :itcutility do
     #puts("Opening new pg_dump")
     #pg_backup_client = cient.send(:pgbackup_client) # protected
     puts "open..."
-    local_pg_dump = open(@pgbackup) # pg_backup_client.get_latest_backup["public_url"])
+    local_pg_dump = open(@pgbackup["public_url"]) # pg_backup_client.get_latest_backup["public_url"])
     puts("Finished opening new pg_dump")
  
     puts("Uploading to S3 bucket")
