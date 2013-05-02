@@ -22,7 +22,7 @@ namespace :itcutility do
     # version 2
     pgbackups_url = ENV["PGBACKUPS_URL"] 
     db_url = ENV["PGBACKUPS_DATABASE_URL"] || ENV["DATABASE_URL"]
-    puts "pgbackups_URL = #{pgbackups_url}, db_url = #{db}"
+    puts "pgbackups_URL = #{pgbackups_url}, db_url = #{db_url}"
     
     client = Heroku::Client::Pgbackups.new(pgbackups_url)
     
