@@ -12,7 +12,7 @@ namespace :itcutility do
     puts ENV["HEROKU_USERNAME"]
     puts ENV["HEROKU_API_KEY"]
     
-=begin
+#=begin
      
     Rails.logger.info("Backup started @ #{Time.now}")
     puts "credentials"
@@ -51,7 +51,7 @@ namespace :itcutility do
     AWS::S3::S3Object.store(Time.now.to_s(:number), local_pg_dump, BACKUP_BUCKET_NAME)
  
     puts("Backup completed @ #{Time.now}")
-=end
+#=end
     puts "test"
 
   end
