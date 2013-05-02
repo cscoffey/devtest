@@ -68,10 +68,10 @@ namespace :itcutility do
     end
 
     local_pg_dump = open(@pgbackup["public_url"]) # pg_backup_client.get_latest_backup["public_url"])
- 
-    AWS::S3::S3Object.store("BACKUP_#{APP_NAME}_#{Time.now.to_s(:number)}", local_pg_dump, BACKUP_BUCKET_NAME)
+    backup_name = "BACKUP_#{APP_NAME}_#{Time.now.to_s(:number)}"
+    AWS::S3::S3Object.store(backup_name, local_pg_dump, BACKUP_BUCKET_NAME)
  
     puts("Backup completed @ #{Time.now}")
-
+    Notifier.debug_email("Backup (#{backup_name}) completed @ #{Time.now}", 'chuck.coffey@itcadre.com', 'https://' + ActionMailer::Base.default_url_options[:host] )
   end
 end
