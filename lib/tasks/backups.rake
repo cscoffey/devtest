@@ -29,11 +29,12 @@ namespace :itcutility do
     
     puts "create_transfer"
     #@pgbackup = client.create_transfer(db_url, "#{APP_NAME}", nil, "BACKUP_#{APP_NAME}", :expire => true)
-    @pgbackup = client.create_transfer(from_url: db_url, 
-                                       from_name: APP_NAME, 
-                                       to_url: nil, 
-                                       to_name: "BACKUP_#{APP_NAME}",
-                                       :expire => true)
+    # code found at github.com/heroku/heroku/blob/master/lib/heroku/client/pgbackups.rb
+    @pgbackup = client.create_transfer(db_url,                # from_url
+                                       APP_NAME,              # from_name
+                                       nil,                   # to_url
+                                       "BACKUP_#{APP_NAME}",  # to_name
+                                       :expire => true)       # options (:expire => true/false)
     puts "backup id = #{@pgbackup["id"]}"
     puts "@pgbackup = #{@pgbackup.inspect}"
     @pgbackup = client.get_transfer(@pgbackup["id"])
