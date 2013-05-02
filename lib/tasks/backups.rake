@@ -22,6 +22,7 @@ namespace :itcutility do
                "backup_bucket_name" => ENV['S3_BACKUP_BUCKET_NAME'],
                "heroku_app_name" => ENV['S3_HEROKU_APP_NAME']
     ] 
+    puts config.inspect
     # YAML.load(File.open("#{Rails.root}/config/amazon_s3.yml"))[Rails.env]
     APP_NAME = config[ "heroku_app_name" ]
     #puts APP_NAME
