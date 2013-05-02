@@ -28,11 +28,19 @@ namespace :itcutility do
     client = Heroku::Client::Pgbackups.new(pgbackups_url)
     
     puts "create_transfer"
-    @pgbackup = client.create_transfer(db_url, db_url, nil, "BACKUP", :expire => true)
+    @pgbackup = client.create_transfer(db_url, "#{APP_NAME}", nil, "BACKUP_#{APP_NAME}", :expire => true)
     puts "backup id = #{@pgbackup["id"]}"
     puts "@pgbackup = #{@pgbackup.inspect}"
     @pgbackup = client.get_transfer(@pgbackup["id"])
     puts "@pgbackup now = #{@pgbackup.inspect}"
+
+    until @pgbackup["finished_at"]
+      sleep 1
+      @pgbackup = client.get_transfer(@pgbackup["id"])
+    end
+    
+    puts "@pgbackup now = #{@pgbackup.inspect}"
+
     puts("Opening S3 connection") # Rails.logger.info
     
     AWS::S3::Base.establish_connection!(
@@ -55,7 +63,7 @@ namespace :itcutility do
     puts("Finished opening new pg_dump")
  
     puts("Uploading to S3 bucket")
-    AWS::S3::S3Object.store(Time.now.to_s(:number), local_pg_dump, BACKUP_BUCKET_NAME)
+    AWS::S3::S3Object.store("BACKUP_#{APP_NAME}_#{Time.now.to_s(:number)}", local_pg_dump, BACKUP_BUCKET_NAME)
  
     puts("Backup completed @ #{Time.now}")
 
