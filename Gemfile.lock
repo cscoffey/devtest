@@ -125,6 +125,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionmailer
   aws-s3
   coffee-rails (~> 3.2.1)
   heroku
